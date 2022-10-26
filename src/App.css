@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
 }
 
 .App-logo {
@@ -40,6 +43,15 @@
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 40%;
   border-radius: 5px;
+  width: 40%;  
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.emoji-results{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* width: fit-content; */
+
 }

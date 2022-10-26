@@ -8,20 +8,16 @@ import SearchBar from './components/SearchBar';
 function App() {
 
   const [searchTerm, setSearchTerm] = useState<string>(''); // title or keywords
-  const [emojisResult, setEmojisResult] = useState<Array<EmojiResults>>(emojis);
+  const [emojisResult, setEmojisResult] = useState<Array<EmojiResults>>([]);
 
-  // useEffect(()=>{
-  //   setEmojisResult(emojis);
-  // },[]);
+  useEffect(()=>{
+    setEmojisResult(emojis);
+    console.log(emojis.length)
+  },[]);
 
   const handleOnChange =(e: React.ChangeEvent<HTMLInputElement>)=>{
-    console.log(e.target.value);
-    setSearchTerm(e.target.value);
-    let emojiList = emojis.slice();
-    emojiList = emojiList.filter( elem => elem.keywords.includes(searchTerm) || 
-    elem.title.includes(searchTerm));
-    console.log(emojiList);
-    setEmojisResult(emojiList);
+    console.log(e.target.value, e.target.value.length);
+    setSearchTerm(e.target.value.trim());
   }
 
   return (
@@ -31,11 +27,25 @@ function App() {
       </header>
 
       <SearchBar handleOnChange={handleOnChange} />
-      {emojisResult.slice(0,6).map((emoji,i) =>{
+      <div className='emoji-results'>
+      {emojisResult
+      .filter(elem => {
+        if (searchTerm.length === 0){
+          return elem;
+        }else if( elem.keywords.includes(searchTerm) || 
+          elem.title.includes(searchTerm)){
+            return elem;
+          }
+        return false;
+        }
+      )
+      .slice(0,9)
+      .map((emoji,i) =>{
         return(
           <EmojiCard key={i} emoji={emoji}/>
         )
       })}
+      </div>
     </div>
   );
 }
